@@ -4,10 +4,10 @@ import User from "../model/User.js";
 export const protect = async (req, res, next) => {
   let token;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  // if (
+  //   req.headers.authorization &&
+  //   req.headers.authorization.startsWith("Bearer")
+  // ) {
     try {
       token = req.headers.authorization.split(" ")[1];
 
@@ -22,5 +22,5 @@ export const protect = async (req, res, next) => {
     }
   }
 
-  return res.status(401).json({ message: "Not authorized, no token" });
-};
+//   return res.status(401).json({ message: "Not authorized, no token" });
+// };

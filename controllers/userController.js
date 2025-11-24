@@ -4,9 +4,7 @@ import User from "../model/User.js";
 
 // Generate JWT Token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
-  });
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 // SIGN UP
@@ -22,12 +20,10 @@ export const signUpUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = generateToken(newUser._id);
 
     res.json({
       success: true,
       message: "Signup successful",
-      token,
       user: newUser,
     });
 
@@ -38,8 +34,10 @@ export const signUpUser = async (req, res) => {
 
 // LOGIN
 export const loginUser = async (req, res) => {
-  try {
+  try {    
     const { email, password } = req.body;
+    console.log(email,password);
+    
 
     const user = await User.findOne({ email });
     if (!user) {
