@@ -6,8 +6,10 @@ export const createProduct = async (req, res) => {
     const product = await Product.create(req.body);
     res.status(201).json({ message: "Product added", product });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+  console.log("CREATE PRODUCT ERROR:", err);
+  res.status(500).json({ message: err.message });
+}
+
 };
 
 // GET all the  products
