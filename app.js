@@ -4,6 +4,8 @@ import mongoDbConnection from './config/dbConnection.js';
 import dotenv from 'dotenv'
 import usersRouter from './routes/user.js';
 import adminRouter from './routes/admin.js';
+import cartRouter from './routes/cart.js';
+
 
 dotenv.config();
 
@@ -23,11 +25,14 @@ app.use(cors({
 // Routes
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
+app.use('/cart', cartRouter);
 
 
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
+
+
 
 export default app;
