@@ -25,7 +25,7 @@ export const getProductById = async (req, res) => {
   try {
     console.log('im here------------');
 
-    const id = req.query.id;   
+    const id = req.params.id;   
 
     if (!id) {
       return res.status(400).json({
@@ -53,20 +53,26 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
-
-// UPDATE product
 export const updateProduct = async (req, res) => {
   try {
-    const id= req.query.id;
-    const updateData =req.body;
-    if (!id) return res.status(404).json({ 
-      success:false,
-      message: "Product not found",
-     });
-    res.json({ message: "Product updated", product });
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    const id = req.params.id; 
+    const updateData = req.body;
+
+    const updated = await Product.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: updated
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 

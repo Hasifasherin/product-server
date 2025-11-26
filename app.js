@@ -16,13 +16,14 @@ app.use(express.json());
 mongoDbConnection();
 
 app.use(cors({
-    origin: "http://localhost:5173",  // your React frontend URL
+    origin: "http://localhost:5173",  
   credentials: true
 }));
 
 // Routes
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
+
 
 // 404 Handler
 app.use((req, res) => {
