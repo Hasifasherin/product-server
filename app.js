@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173",  
+    origin: "http://localhost:5175",  
     credentials: true
 }));
 
@@ -22,6 +22,7 @@ mongoDbConnection();
 // Routes
 app.use('/', usersRouter);      
 app.use('/admin', adminRouter); 
+app.use("/assets", express.static("assets"))
 
 // 404 handler
 app.use((req, res) => {

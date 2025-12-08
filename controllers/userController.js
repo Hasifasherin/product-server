@@ -87,3 +87,24 @@ export const getCart = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const updateCartItem = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { cartItemId } = req.params;
+    const { quantity } = req.body;
+
+    if (quantity < 1) return res.status(400).json({ message: "Quantity cannot be less than 1" });
+
+    const cartItem = await CartItem.findOne({ _id: cartItemId, user: userId });
+    if (!cartItem) return res.status(404).json({ message: "Cart item not found" });
+
+    cartItem.quantity = quantity;
+    await cartItem.save();
+
+    const cart = await CartItem.find({ user: userId }).populate("product");
+    res.json({ success: true, cart });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

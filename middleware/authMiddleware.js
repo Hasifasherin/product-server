@@ -11,7 +11,7 @@ export const protect = async (req, res, next) => {
     }
 
     // Extract token
-    token = req.headers.authorization.split(" ")[1];
+    token = req.headers.authorization.split(" ")[1].trim();
 
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -26,7 +26,7 @@ export const protect = async (req, res, next) => {
 
     // Check if user exists
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(403).json({ message: "Admin access required" });
     }
 
     // Attach user to request
@@ -36,6 +36,9 @@ export const protect = async (req, res, next) => {
     next();
 
   } catch (error) {
+      console.error("Auth middleware error:", error);
+
+
     // Differentiate between token expired and invalid token
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({ message: "Token expired" });
