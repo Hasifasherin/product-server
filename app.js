@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5175",  
+    origin: "http://localhost:3000",  
     credentials: true
 }));
 
@@ -22,7 +22,9 @@ mongoDbConnection();
 // Routes
 app.use('/', usersRouter);      
 app.use('/admin', adminRouter); 
-app.use("/assets", express.static("assets"))
+app.use("/assets", express.static("assets")); // you can keep this also
+
+app.use("/uploads", express.static("uploads"));
 
 // 404 handler
 app.use((req, res) => {

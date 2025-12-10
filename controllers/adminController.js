@@ -13,7 +13,6 @@ export const createProduct = async (req, res) => {
             image: req.file ? req.file.filename :null,
             description: req.body.description,
         });
-        console.log(product ,"---------------->");
         
         res.status(201).json({ message: "Product added", product });
     } catch (err) {
