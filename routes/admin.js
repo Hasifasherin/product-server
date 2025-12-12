@@ -7,15 +7,13 @@ import {
   deleteProduct
 } from "../controllers/adminController.js";
 import { protect } from "../middleware/authMiddleware.js"; 
-import multer from "multer";
-
+import upload from '../config/multer.js';
 
 const router = express.Router();
-const upload = multer({ dest: "assets/"})
 
 
 // CREATE 
-router.post("/add-product", protect,upload.single("image"),createProduct)
+router.post("/add-product", protect, upload.single("image"), createProduct);
 
 // GET all 
 router.get('/products', protect, getAllProducts);

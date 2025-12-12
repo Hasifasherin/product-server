@@ -4,6 +4,7 @@ import mongoDbConnection from './config/dbConnection.js';
 import dotenv from 'dotenv';
 import usersRouter from './routes/user.js';
 import adminRouter from './routes/admin.js';
+import cloudinary from "./config/cloudinary.js"
 
 dotenv.config();
 
@@ -22,9 +23,9 @@ mongoDbConnection();
 // Routes
 app.use('/', usersRouter);      
 app.use('/admin', adminRouter); 
-app.use("/assets", express.static("assets")); // you can keep this also
+// app.use("/assets", express.static("assets")); // you can keep this also
 
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 // 404 handler
 app.use((req, res) => {

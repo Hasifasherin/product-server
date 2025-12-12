@@ -5,12 +5,14 @@ import Product from '../model/Product.js';
 export const createProduct = async (req, res) => {
     try {
 
-        console.log(" req.file ------------->", req.file);
+        console.log("Uploaded file info:", JSON.stringify(req.file, null, 2));
+
+
         const product = await Product.create({
             title: req.body.title,
             price: req.body.price,
             category:req.body.category ,
-            image: req.file ? req.file.filename :null,
+            image: req.file ? req.file.path :null, //changed filename to path
             description: req.body.description,
         });
         
@@ -73,7 +75,7 @@ export const updateProduct = async (req, res) => {
         const updateData = req.body;
 
         if(req.file){
-            updateData.image = req.file.filename;
+            updateData.image = req.file.path;//path here also
         }
 
         const updated = await Product.findByIdAndUpdate(id, updateData, {

@@ -7,6 +7,6 @@ const productSchema = new mongoose.Schema({
   image: { type: String, required: true },
   description: { type: String, required: true },
   deleted: { type: Boolean, default: false },
-});
+},{ timestamps: true }); 
 
 export default mongoose.model('Product', productSchema);
